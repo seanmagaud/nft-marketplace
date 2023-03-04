@@ -37,8 +37,8 @@ export default function Navbar() {
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="hidden lg:block h-10 w-auto"
-                    src="/images/page_logo.png"
-                    alt="Workflow"
+                    src="/images/sbab.png"
+                    alt="sbab marketplace"
                   />
                 </div>
                 <div className="hidden sm:block sm:ml-6">

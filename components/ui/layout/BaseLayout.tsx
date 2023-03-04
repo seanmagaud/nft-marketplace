@@ -1,7 +1,7 @@
 import { FunctionComponent, ReactNode } from "react"
 import Navbar from "../navbar"
 
-type Props = {
+interface Props {
     children: ReactNode | ReactNode[]
   }
 
