@@ -7,11 +7,9 @@ export default function Home() {
   const {provider, contract} = useWeb3()
 
   const getNftInfo = async () => {
-    
-  console.log(await contract!.name())
-  console.log(await contract!.symbol())
+    console.log(await contract!.name())
+    console.log(await contract!.symbol())
   }
-
   if (contract) {
     getNftInfo()
   }
