@@ -17,7 +17,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({item}) => {
           alt="New NFT"
         />
       </div>
-      <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+      <div className="flex-1 bg-purple-200 p-6 flex flex-col justify-between">
         <div className="flex-1">
           <p className="text-sm font-medium text-indigo-600">
             Creatures NFT
