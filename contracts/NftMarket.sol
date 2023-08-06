@@ -3,8 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NftMarket is ERC721URIStorage {
+contract NftMarket is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     struct NftItem {
@@ -36,6 +37,11 @@ contract NftMarket is ERC721URIStorage {
     mapping(uint => uint) private _idToNftIndex;
 
     constructor() ERC721("CreaturesNFT", "CNFT") {}
+
+    function setListingPrice(uint newPrice) external onlyOwner {
+        require(newPrice > 0, "Price must be at least 1 wei");
+        listingPrice = newPrice;
+    }
 
     function getNftItem(uint tokenId) public view returns (NftItem memory) {
         return _idToNftItem[tokenId];
@@ -138,6 +144,25 @@ contract NftMarket is ERC721URIStorage {
         payable(owner).transfer(msg.value);
     }
 
+    function placeNftOnSale(uint tokenId, uint newPrice) public payable {
+        require(
+            ERC721.ownerOf(tokenId) == msg.sender,
+            "You are not owner of this nft"
+        );
+        require(
+            _idToNftItem[tokenId].isListed == false,
+            "Item is already on sale"
+        );
+        require(
+            msg.value == listingPrice,
+            "Price must be equal to listing price"
+        );
+
+        _idToNftItem[tokenId].isListed = true;
+        _idToNftItem[tokenId].price = newPrice;
+        _listedItems.increment();
+    }
+
     function _createNftItem(uint tokenId, uint price) private {
         require(price > 0, "Price must be at least 1 wei");
 
@@ -152,7 +177,10 @@ contract NftMarket is ERC721URIStorage {
         uint tokenId,
         uint batchSize
     ) internal virtual override {
+        // override function from ERC721
+
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
+        // call the extending contract fril ERC721
 
         // minting token
         if (from == address(0)) {

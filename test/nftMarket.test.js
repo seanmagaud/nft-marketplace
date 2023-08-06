@@ -139,6 +139,30 @@ contract("NftMarket", accounts => {
     })
   })
 
+  
+  describe("List an Nft", () => {
+    before(async () => {
+      await _contract.placeNftOnSale(
+        1,
+        _nftPrice, { from: accounts[1], value: _listingPrice}
+      )
+    })
+
+    it("should have two listed items", async () => {
+      const listedNfts = await _contract.getAllNftsOnSale();
+
+      assert.equal(listedNfts.length, 2, "Invalid length of Nfts");
+    })
+
+    it("should set new listing price", async () => {
+      await _contract
+        .setListingPrice(_listingPrice); // specify from account 0 is already set by default
+      const listingPrice = await _contract.listingPrice();
+
+      assert.equal(listingPrice.toString(), _listingPrice, "Invalid Price");
+    })
+  })
+  
   describe("Burn Token", () => {
     const tokenURI = "https://test-json3.com";
     before(async () => {
