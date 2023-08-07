@@ -2,10 +2,13 @@ import { BaseLayout, NftList } from "@ui";
 import { NftMeta } from '@_types/nft';
 import nfts from "../content/meta.json";
 import { useWeb3 } from "@providers/web3";
+import { useListedNfts } from '@hooks/web3';
 
 export default function Home() {
   const {provider, contract} = useWeb3()
+  const { nfts } = useListedNfts();
 
+  console.log(nfts.data);
   const getNftInfo = async () => {
     // console.log(await contract!.name())
     // console.log(await contract!.symbol())
@@ -33,7 +36,9 @@ export default function Home() {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList nfts={nfts as NftMeta[]}/>
+          <NftList
+            nfts={nfts?.data}
+          />
         </div>
       </div>
     </BaseLayout>
