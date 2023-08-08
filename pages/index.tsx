@@ -1,8 +1,7 @@
 import { BaseLayout, NftList } from "@ui";
-import { NftMeta } from '@_types/nft';
-import nfts from "../content/meta.json";
 import { useWeb3 } from "@providers/web3";
 import { useListedNfts } from '@hooks/web3';
+import { Nft } from "@_types/nft";
 
 export default function Home() {
   const {provider, contract} = useWeb3()
@@ -37,7 +36,7 @@ export default function Home() {
             </p>
           </div>
           <NftList
-            nfts={nfts?.data}
+            nfts={nfts?.data as Nft[]}
           />
         </div>
       </div>

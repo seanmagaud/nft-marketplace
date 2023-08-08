@@ -30627,12 +30627,12 @@
         }
       },
       "links": {},
-      "address": "0xFB67DCD53aa284D7AD6f9f52A7393Eb04E657ed9",
-      "transactionHash": "0xea0f346a1da1ee943f8fbf58d7c2610067a037ccc75e98c70957a8658355d8d7"
+      "address": "0xaa7C8F0e102e5F512CFB328F505711Ce9a539596",
+      "transactionHash": "0x1576bd1b24ed599e739275605529e818a9d7517c1a06dd8c14d3e17679047e96"
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-08-07T19:34:51.662Z",
+  "updatedAt": "2023-08-08T21:08:20.395Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
