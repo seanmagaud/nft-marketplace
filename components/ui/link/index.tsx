@@ -14,14 +14,13 @@ const ActiveLink: FunctionComponent<LinkProps> = ({children, ...props}) => {
   let _defaultClass = `${className} text-gray-100`
 
   if (pathname === props.href) {
-    className = `${className} text-indigo-400 ${props.activeClass}`
+    className = `${className} text-ligth-red ${props.activeClass}`
   } else {
     className = _defaultClass;
   }
 
   return (
-    <Link {...props} 
-    legacyBehavior>
+    <Link {...props} legacyBehavior>
       {
         React.cloneElement(children, {className})
       }
