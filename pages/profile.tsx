@@ -64,7 +64,7 @@ const Profile: NextPage = () => {
                 <section className="mt-8 pb-16" aria-labelledby="gallery-heading">
                   <ul
                     role="list"
-                    className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+                    className="grid grid-cols-2 gap-x-4 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
                   >
                     {(nfts.data as Nft[]).map((nft) => (
                       <li
@@ -84,7 +84,7 @@ const Profile: NextPage = () => {
                             alt=""
                             className={classNames(
                               nft.tokenId === activeNft?.tokenId  ? '' : 'group-hover:opacity-75',
-                              'object-cover pointer-events-none'
+                              'h-[200px] object-contain pointer-events-none'
                             )}
                           />
                           <button type="button" className="absolute inset-0 focus:outline-none">
@@ -106,12 +106,12 @@ const Profile: NextPage = () => {
               <aside className="hidden w-96 bg-dark-blue p-8 rounded-md overflow-y-auto lg:block">
                 <div className="space-y-6">
                   <div>
-                    <div className="block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden">
+                    <div className="flex justify-center w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden">
                       <img src={activeNft.meta.image} alt="" className="object-cover" />
                     </div>
                     <div className="mt-4 flex items-start justify-between">
                       <div>
-                        <h2 className="text-lg font-medium text-light-red">
+                        <h2 className="text-xl test-center mb-4 font-medium text-light-red">
                           <span className="sr-only">Details for </span>
                           {activeNft.meta.name}
                         </h2>

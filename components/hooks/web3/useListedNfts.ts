@@ -1,3 +1,4 @@
+
 import { ethers } from "ethers";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
@@ -20,27 +21,28 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
     async () => {
       const nfts = [] as Nft[];
       const coreNfts = await contract!.getAllNftsOnSale();
-      
-      coreNfts.map(async (nft) => {
-        const tokenURI = await contract!.tokenURI(nft.tokenId)
+
+      for (let i = 0; i < coreNfts.length; i++) {
+        const item = coreNfts[i];
+        const tokenURI = await contract!.tokenURI(item.tokenId);
         const metaRes = await fetch(`/api/fetch?fetchUrl=${tokenURI}`);
         const meta = await metaRes.json();
 
         if (meta?.image?.startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
           nfts.push({
-            price: parseFloat(ethers.utils.formatEther(nft.price)),
-            tokenId: nft.tokenId.toNumber(),
-            creator: nft.creator,
-            isListed: nft.isListed,
+            price: parseFloat(ethers.utils.formatEther(item.price)),
+            tokenId: item.tokenId.toNumber(),
+            creator: item.creator,
+            isListed: item.isListed,
             meta
           })
         }
-      })
+      }
       
       return nfts;
     }
-  )
-  
+  );
+
   const _contract = contract;
   const buyNft = useCallback(async (tokenId: number, value: number) => {
     try {
