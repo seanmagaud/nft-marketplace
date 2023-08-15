@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { FunctionComponent } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { Nft } from "@_types/nft";
@@ -14,14 +15,17 @@ function shortifyAddress(address: string) {
 const NftItem: FunctionComponent<NftItemProps> = ({item, buyNft}) => {
   return (
     <>
+      <div className="flex justify-center items-center mt-2 text-light-red">
+        {item.meta.name}
+      </div>
       <div className="flex-shrink-0">
         <img
-          className={`h-full w-full object-cover`}
+          className={`h-[350px] w-full object-contain`}
           src={item.meta.image}
           alt="New NFT"
         />
       </div>
-      <div className="flex-1 bg-dark-blue p-6 flex flex-col justify-between">
+      <div className="flex-1 bg-dark-blue p-6 flex flex-col justify-between border-t border-lightest-red">
         <div className="flex-1">
         <div className="flex justify-between items-center mb-4">
             <div className="flex items-center">
@@ -33,8 +37,8 @@ const NftItem: FunctionComponent<NftItemProps> = ({item, buyNft}) => {
                 <p className="text-xs font-medium text-lighter-red">{shortifyAddress(item.creator)}</p>
               </div>
             </div>
-            <p className="text-sm font-medium text-lighter-red">
-              Sbab Creatures NFT
+            <p className="text-sm font-medium text-lighter-red border rounded-lg border-light-red p-1 px-2">
+              sbab creatures nft
             </p>
           </div>
         </div>

@@ -74,9 +74,9 @@ const Profile: NextPage = () => {
                         <div
                           className={classNames(
                             nft.tokenId === activeNft?.tokenId 
-                              ? 'ring-2 ring-offset-2 ring-light-red'
-                              : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-light-red',
-                            'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
+                              ? 'ring-2 ring-light-red'
+                              : 'focus-within:ring-light-red',
+                            'group block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden'
                           )}
                         >
                           <img
@@ -91,7 +91,7 @@ const Profile: NextPage = () => {
                             <span className="sr-only">View details for {nft.meta.name}</span>
                           </button>
                         </div>
-                        <p className="mt-2 block text-sm font-medium text-light-red truncate pointer-events-none">
+                        <p className="mt-2 block text-sm font-medium text-light-red truncate pointer-events-none text-center">
                           {nft.meta.name}
                         </p>
                       </li>

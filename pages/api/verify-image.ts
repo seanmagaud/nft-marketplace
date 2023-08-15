@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import FormData from "form-data";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Session } from "next-iron-session";
-import { addressCheckMiddleware, pinataApiKey, pinataSecretApiKey, withSession } from "./utils";
+import { addressCheckMiddleware, pinataJWTKey, withSession } from "./utils";
 import axios from "axios";
 import { FileReq } from "@_types/nft";
 
@@ -38,8 +38,7 @@ export default withSession(async (
       headers: {
         "Accept": "text/plain",
         "Content-Type": `multipart/form-data; boundary=${formData.getBoundary()}`,
-        pinata_api_key: pinataApiKey,
-        pinata_secret_api_key: pinataSecretApiKey
+        Authorization: `Bearer ${pinataJWTKey}`
       }
     });
 

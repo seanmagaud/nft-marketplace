@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { toast } from "react-toastify";

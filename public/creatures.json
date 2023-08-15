@@ -1,0 +1,123 @@
+[
+    {
+        "description": "Two flying dragons traverse the skies with enchanting grace. The first bears scales of deep blue, iridescent under the sun, while the second gleams with a fiery red, evoking the glow of flames. Their powerful wings beat in harmony, creating a hypnotic aerial symphony. Their sparkling gazes meet at times, exchanging silent communication. The dragons trace arabesques in the azure sky, drawing bold curves that leave a fleeting imprint. Their presence evokes both respect and wonder, reminding observers of the grandeur of ancient legends. Each of their movements is a display of power and elegance, making them truly extraordinary creatures in their aerial realm.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmeNi3y7t2xEGePuf7jkhAqkD9zMCkj8XZXxekMMk7EGUy",
+        "name": "Eclatursa and Ignifer",
+        "price": "0.3",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "70"
+            },
+            {
+                "trait_type": "health",
+                "value": "20"
+            },
+            {
+                "trait_type": "speed",
+                "value": "90"
+            }
+        ]
+    },
+    {
+        "description": "The Soul Reaper emerges from shadows, a hooded and veiled silhouette cloaked in darkness, reminiscent of eternal night. Its face remains concealed within the depths of its hood, revealing only eyes that gleam with icy brilliance. A lugubrious and sinister scythe rests in its skeletal hand, the blade seemingly absorbing light to devour it. Its dark aura sends a shiver through the souls of those who cross its path, a presence that hints at an inevitable end. With each step, it leaves traces of nothingness, an echo of souls passing into the beyond. Its gait is silent, seeming to defy the laws of reality itself. Obscurion embodies the ultimate transition, an inevitable guide to the obscure mysteries of the afterlife.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmcqDGSCd1jZuKy5R9DUsB65sqepAoSJgTDSVUJGQ4Jt55",
+        "name": "Obscurion, the Soul Reaper",
+        "price": "0.25",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "90"
+            },
+            {
+                "trait_type": "health",
+                "value": "10"
+            },
+            {
+                "trait_type": "speed",
+                "value": "10"
+            }
+        ]
+    },
+    {
+        "description": "Aquarame is a strange and captivating creature, an improbable fusion of two worlds. Its massive body resembles that of a ram, with coiled horns and powerful musculature. However, its front legs transform into graceful fins, while its tail unfurls into a caudal fin, reminiscent of a fish. Its scales shimmer in iridescent tones, reflecting the changing hues of the water. The creature's perceptive eyes, one on each side of its hybrid head, scan the world with curiosity and wariness. As it moves, its motions are a surprising blend of heavy steps and fluid glides, creating a surreal image of two natures in improbable harmony.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmRftCynUYvo9g3jUryyvSbdjDjVtRxQBbrkAZ7udESV2c",
+        "name": "Aquarame, the Depths Ram",
+        "price": "0.17",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "50"
+            },
+            {
+                "trait_type": "health",
+                "value": "80"
+            },
+            {
+                "trait_type": "speed",
+                "value": "20"
+            }
+        ]
+    },
+    {
+        "description": "The Serpent Hydra emerges from the dark corners of nature, a creature with an aura that is both majestic and unsettling. Its massive body is adorned with glistening scales of deep green, reflecting the hues of the jungle it traverses. Its keen, gem-like eyes reveal both cunning and wild intelligence. Its gaping maw is lined with rows of sharp fangs, ready to seize its prey. Each of its three heads stands proudly, each possessing a unique personality. The hydra glides through the vegetation with surprising agility, its graceful movements contrasting with its menacing aura. It is a legendary guardian of the forest's secrets, a symbol of the duality between untamed beauty and mortal danger.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmVgGLdjwCGL4a9EgJE6DnSYt9hhDxQeEZoWFPGdkeYsF7",
+        "name": "Sylphyr, the Emerald Serpent Hydra",
+        "price": "0.2",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "70"
+            },
+            {
+                "trait_type": "health",
+                "value": "10"
+            },
+            {
+                "trait_type": "speed",
+                "value": "40"
+            }
+        ]
+    },
+    {
+        "description": "Shadowclaw embodies an ancestral terror, its majestic form imbued with a disconcerting darkness. Its dark fur seems to absorb light, accentuating the intensity of its fiery eyes that glow with a scarlet hue. Its oversized, razor-sharp claws evoke impending destruction, and its fangs appear forged in the depths of hell. Its floating mane comes alive with dark flames, dancing with a malevolent energy. With each step, the ground trembles under the force of its demonic aura. The roar of Shadowclaw is a lugubrious echo that sends shivers even through the bravest hearts. This creature personifies unleashed power and infernal savagery.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmT7mt4FmZAxdRaChHfaUJRTxjyxudopEM8K5z8Tjmno1W",
+        "name": "Shadowclaw, the Abyssal Lion",
+        "price": "0.15",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "60"
+            },
+            {
+                "trait_type": "health",
+                "value": "60"
+            },
+            {
+                "trait_type": "speed",
+                "value": "40"
+            }
+        ]
+    },
+    {
+        "description": "Nereus rises from the depths, a colossal silhouette emerging from tumultuous waves. Its massive body is shrouded in obsidian-black scales, gleaming with an eerie light in the glow of lightning. Two luminescent eyes of sinister green perceive the souls daring to navigate its cursed waters. Long, intertwined tentacles extend from its back, creating a terrifying shadow beneath the surface. The waves break with a demonic fury in its wake, and its abyssal roar sends a chill through the blood. It is the master of marine storms, its dominion extending its malevolent influence over the tempestuous oceans.",
+        "image": "https://gateway.pinata.cloud/ipfs/QmV4ftG79YkBoFUqCi48TydPpmpRU4pgCenr3Q4S3WSTpg",
+        "name": "Nereus, the Abyssal Lord",
+        "price": "0.1",
+        "attributes": [
+            {
+                "trait_type": "attack",
+                "value": "40"
+            },
+            {
+                "trait_type": "health",
+                "value": "90"
+            },
+            {
+                "trait_type": "speed",
+                "value": "05"
+            }
+        ]
+    }
+]
+  

@@ -2,7 +2,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { Session } from "next-iron-session";
 import { NextApiRequest, NextApiResponse } from "next";
-import { withSession, contractAddress, addressCheckMiddleware, pinataApiKey, pinataSecretApiKey } from "./utils";
+import { withSession, contractAddress, addressCheckMiddleware, pinataJWTKey } from "./utils";
 import { NftMeta } from "@_types/nft";
 
 export default withSession(async (req: NextApiRequest & {session: Session}, res: NextApiResponse) => {
@@ -23,10 +23,7 @@ export default withSession(async (req: NextApiRequest & {session: Session}, res:
         },
         pinataContent: nft
       }, {
-        headers: {
-          pinata_api_key: pinataApiKey,
-          pinata_secret_api_key: pinataSecretApiKey
-        }
+        headers: { Authorization: `Bearer ${pinataJWTKey}` } 
       });
 
       return res.status(200).send(jsonRes.data);

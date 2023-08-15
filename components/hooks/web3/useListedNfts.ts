@@ -26,7 +26,7 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
         const metaRes = await fetch(`/api/fetch?fetchUrl=${tokenURI}`);
         const meta = await metaRes.json();
 
-        if (meta.image.startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
+        if (meta?.image?.startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
           nfts.push({
             price: parseFloat(ethers.utils.formatEther(nft.price)),
             tokenId: nft.tokenId.toNumber(),

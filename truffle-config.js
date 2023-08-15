@@ -1,3 +1,6 @@
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const keys = require('./keys.json');
+
 module.exports = {
     contracts_build_directory:"./public/contracts",
     networks: {
@@ -6,6 +9,13 @@ module.exports = {
        port: 7545,            // Standard Ethereum port (default: none)
        network_id: "*",       // Any network (default: none)
       },
+      sepolia: {
+        provider: () => new HDWalletProvider(keys.DEPLOYER_KEY, keys.INFURA_SEPOLIA_URL),
+        network_id: "11155111",
+        gasPrice: 2500000000,
+        networkCheckTimeout: 10000,
+        timeoutBlock: 200,
+      }
     },
     compilers: {
       solc: {

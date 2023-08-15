@@ -38,7 +38,8 @@ export const hookFactory: OwnedNftsHookFactory = ({contract}) => () => {
 
       return nfts;
     }
-  )  
+  )
+  
   const _contract = contract;
   const listNft = useCallback(async (tokenId: number, price: number) => {
     try {
@@ -48,9 +49,7 @@ export const hookFactory: OwnedNftsHookFactory = ({contract}) => () => {
         {
           value: ethers.utils.parseEther(0.025.toString())
         }
-      )
-
-      await result?.wait();
+      );
       
       await toast.promise(
         result!.wait(), {

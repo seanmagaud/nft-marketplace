@@ -12,7 +12,8 @@ module.exports = {
         dark: "#2f3d4e",
         'dark-blue': "#263648",
         'light-red': "#ac9292",
-        'lighter-red': "#ccb0b0"
+        'lighter-red': "#ccb0b0",
+        'lightest-red': "#cbb0b033",
       },
     },
   },

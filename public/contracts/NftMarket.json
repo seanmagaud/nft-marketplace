@@ -30629,10 +30629,16 @@
       "links": {},
       "address": "0xaa7C8F0e102e5F512CFB328F505711Ce9a539596",
       "transactionHash": "0x1576bd1b24ed599e739275605529e818a9d7517c1a06dd8c14d3e17679047e96"
+    },
+    "11155111": {
+      "events": {},
+      "links": {},
+      "address": "0x7aBe7B293f2deBBd24f066fEC70597fA6EbEA13F",
+      "transactionHash": "0xe365d1987833238c25672f4304a63cc436426f9939cd9c40d4c32f8fb5597ab9"
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-08-08T21:08:20.395Z",
+  "updatedAt": "2023-08-15T12:28:37.587Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
