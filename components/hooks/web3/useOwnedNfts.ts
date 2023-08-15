@@ -1,8 +1,10 @@
-import { CryptoHookFactory } from "@_types/hooks";
-import { Nft } from "@_types/nft";
 import { ethers } from "ethers";
 import { useCallback } from "react";
+import { toast } from "react-toastify";
 import useSWR from "swr";
+
+import { CryptoHookFactory } from "@_types/hooks";
+import { Nft } from "@_types/nft";
 
 type UseOwnedNftsResponse = {
   listNft: (tokenId: number, price: number) => Promise<boolean>
@@ -23,13 +25,15 @@ export const hookFactory: OwnedNftsHookFactory = ({contract}) => () => {
         const metaRes = await fetch(tokenURI)
         const meta = await metaRes.json();
 
-        nfts.push({
-          price: parseFloat(ethers.utils.formatEther(nft.price)),
-          tokenId: nft.tokenId.toNumber(),
-          creator: nft.creator,
-          isListed: nft.isListed,
-          meta
-        })
+        if (meta.image.startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
+          nfts.push({
+            price: parseFloat(ethers.utils.formatEther(nft.price)),
+            tokenId: nft.tokenId.toNumber(),
+            creator: nft.creator,
+            isListed: nft.isListed,
+            meta
+          })
+        }
       })
 
       return nfts;
@@ -47,7 +51,14 @@ export const hookFactory: OwnedNftsHookFactory = ({contract}) => () => {
       )
 
       await result?.wait();
-      alert("Item has been listed!")
+      
+      await toast.promise(
+        result!.wait(), {
+          pending: "Processing transaction",
+          success: "Item has been listed",
+          error: "Processing error"
+        }
+      );
       
       return true;
     } catch (e: any) {

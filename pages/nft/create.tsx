@@ -1,19 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
-
+import axios from 'axios';
+import { ethers } from 'ethers';
+import { toast } from "react-toastify";
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { ChangeEvent, useState } from 'react';
 import { BaseLayout } from '@ui'
+import { ExclamationIcon } from '@heroicons/react/solid';
 import { Switch } from '@headlessui/react'
-import Link from 'next/link'
-import axios from 'axios';
+
 import { useWeb3 } from '@providers/web3';
-import { ethers } from 'ethers';
+import { useNetwork } from '@hooks/web3';
 import { NftMeta, PinataRes } from '@_types/nft';
 
 const ALLOWED_FIELDS = ["name", "description", "image", "attributes"];
 
 const NftCreate: NextPage = () => {
   const {ethereum, contract} = useWeb3();
+  const {network} = useNetwork();
   const [nftURI, setNftURI] = useState("");
   const [price, setPrice] = useState("");
   const [hasURI, setHasURI] = useState(false);
@@ -54,7 +57,7 @@ const NftCreate: NextPage = () => {
     try {
       const {signedData, account} = await getSignedData();
 
-      const res = await axios.post("/api/verify-image", {
+      const promise = axios.post("/api/verify-image", {
         address: account,
         signature: signedData,
         bytes,
@@ -62,6 +65,14 @@ const NftCreate: NextPage = () => {
         fileName: file.name.replace(/\.[^/.]+$/, "")
       });
 
+      const res = await toast.promise(
+        promise, {
+          pending: "Uploading image",
+          success: "Image uploaded",
+          error: "Image upload error"
+        }
+      )
+      
       const data = res.data as PinataRes;
 
       setNftMeta({
@@ -92,12 +103,20 @@ const NftCreate: NextPage = () => {
   const uploadMetadata = async () => {
     try {
       const {signedData, account} = await getSignedData();
-      
-      const res = await axios.post("/api/verify", {
+
+      const promise = axios.post("/api/verify", {
         address: account,
         signature: signedData,
         nft: nftMeta
       })
+
+      const res = await toast.promise(
+        promise, {
+          pending: "Uploading metadata",
+          success: "Metadata uploaded",
+          error: "Metadata upload error"
+        }
+      )
 
       const data = res.data as PinataRes;
       setNftURI(`${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`);
@@ -122,6 +141,10 @@ const NftCreate: NextPage = () => {
         if (content[key].length < 1) {
           throw new Error("One of the fields is empty");
         }
+
+        if (key === "image" && !content[key].startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
+          throw new Error("Image must be uploaded to Pinata");
+        }
       })
 
       const tx = await contract?.mintToken(
@@ -131,23 +154,54 @@ const NftCreate: NextPage = () => {
         }
       );
 
-      await tx?.wait();
-      alert("Nft was created!");
+      await toast.promise(
+        tx!.wait(), {
+          pending: "Minting NFT Token",
+          success: "NFT created",
+          error: "Minting error"
+        }
+      );
     } catch(e: any) {
       console.error(e.message);
     }
   }
+
+  if (!network.isConnectedToNetwork) {
+    return (
+      <BaseLayout>
+        <div className="rounded-md bg-yellow-50 p-4 mt-10">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <ExclamationIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-yellow-800">Attention needed</h3>
+              <div className="mt-2 text-sm text-yellow-700">
+                <p>
+                { network.isLoading ?
+                  "Loading..." :
+                  `Connect to ${network.targetNetwork}`
+                }
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BaseLayout>
+    )
+  }
+
   return (
     <BaseLayout>
       <div>
         <div className="py-4">
           { !nftURI &&
             <div className="flex">
-              <div className="mr-2 font-bold underline text-gray-300">Do you have meta data already?</div>
+              <div className="mr-2 font-bold underline text-lighter-red">Do you have meta data already?</div>
               <Switch
                 checked={hasURI}
                 onChange={() => setHasURI(!hasURI)}
-                className={`${hasURI ? 'bg-light-red' : 'bg-gray-700'}
+                className={`${hasURI ? 'bg-light-red' : 'bg-lighter-red'}
                   relative inline-flex flex-shrink-0 h-[28px] w-[64px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
                 <span className="sr-only">Use setting</span>
@@ -164,8 +218,8 @@ const NftCreate: NextPage = () => {
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
-                <h3 className="text-lg font-medium leading-6 text-gray-300">List NFT</h3>
-                <p className="mt-1 text-sm text-gray-300">
+                <h3 className="text-lg font-medium leading-6 text-lighter-red">List NFT</h3>
+                <p className="mt-1 text-sm text-lighter-red">
                   This information will be displayed publicly so be careful what you share.
                 </p>
               </div>
@@ -185,7 +239,7 @@ const NftCreate: NextPage = () => {
                             type="text"
                             name="uri"
                             id="uri"
-                            className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                            className="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                             placeholder="http://link.com/data.json"
                           />
                         </div>
@@ -216,7 +270,7 @@ const NftCreate: NextPage = () => {
                           type="number"
                           name="price"
                           id="price"
-                          className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                          className="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                           placeholder="0.8"
                         />
                       </div>
@@ -226,7 +280,7 @@ const NftCreate: NextPage = () => {
                     <button
                       onClick={createNft}
                       type="button"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-light-red hover:bg-lighter-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-light-red hover:bg-lighter-red focus:outline-none focus:ring-2 focus:ring-offset-2"
                     >
                       List
                     </button>
@@ -239,8 +293,8 @@ const NftCreate: NextPage = () => {
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium leading-6 text-gray-300">Create NFT Metadata</h3>
-              <p className="mt-1 text-sm text-gray-300">
+              <h3 className="text-lg font-medium leading-6 text-lighter-red">Create NFT Metadata</h3>
+              <p className="mt-1 text-sm text-lighter-red">
                 This information will be displayed publicly so be careful what you share.
               </p>
             </div>
@@ -260,7 +314,7 @@ const NftCreate: NextPage = () => {
                         type="text"
                         name="name"
                         id="name"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="My Nice NFT"
                       />
                     </div>
@@ -276,13 +330,10 @@ const NftCreate: NextPage = () => {
                         id="description"
                         name="description"
                         rows={3}
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                        className="shadow-sm   mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                         placeholder="Some nft description..."
                       />
                     </div>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Brief description of NFT
-                    </p>
                   </div>
                   {/* Has Image? */}
                   { nftMeta.image ?
@@ -308,7 +359,7 @@ const NftCreate: NextPage = () => {
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
-                            className="relative cursor-pointer bg-white rounded-md font-medium text-light-red hover:text-lighter-red focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                            className="relative cursor-pointer bg-white rounded-md font-medium text-light-red hover:text-lighter-red focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2"
                           >
                             <span>Upload a file</span>
                             <input
@@ -338,7 +389,7 @@ const NftCreate: NextPage = () => {
                           type="text"
                           name={attribute.trait_type}
                           id={attribute.trait_type}
-                          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                          className="mt-1   block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         />
                       </div>
                     )}
@@ -351,7 +402,7 @@ const NftCreate: NextPage = () => {
                   <button
                     onClick={uploadMetadata}
                     type="button"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-light-red hover:bg-lighter-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-light-red hover:bg-lighter-red focus:outline-none focus:ring-2 focus:ring-offset-2 "
                   >
                     List
                   </button>

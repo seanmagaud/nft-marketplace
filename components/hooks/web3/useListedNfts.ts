@@ -1,9 +1,10 @@
+import { ethers } from "ethers";
+import { useCallback } from "react";
+import { toast } from "react-toastify";
+import useSWR from "swr";
 
 import { CryptoHookFactory } from "@_types/hooks";
 import { Nft } from "@_types/nft";
-import { ethers } from "ethers";
-import { useCallback } from "react";
-import useSWR from "swr";
 
 type UseListedNftsResponse = {
   buyNft: (token: number, value: number) => Promise<void>
@@ -22,16 +23,18 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
       
       coreNfts.map(async (nft) => {
         const tokenURI = await contract!.tokenURI(nft.tokenId)
-        const metaRes = await fetch(tokenURI)
+        const metaRes = await fetch(`/api/fetch?fetchUrl=${tokenURI}`);
         const meta = await metaRes.json();
 
-        nfts.push({
-          price: parseFloat(ethers.utils.formatEther(nft.price)),
-          tokenId: nft.tokenId.toNumber(),
-          creator: nft.creator,
-          isListed: nft.isListed,
-          meta
-        })
+        if (meta.image.startsWith(process.env.NEXT_PUBLIC_PINATA_DOMAIN)) {
+          nfts.push({
+            price: parseFloat(ethers.utils.formatEther(nft.price)),
+            tokenId: nft.tokenId.toNumber(),
+            creator: nft.creator,
+            isListed: nft.isListed,
+            meta
+          })
+        }
       })
       
       return nfts;
@@ -45,10 +48,15 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
         tokenId, {
           value: ethers.utils.parseEther(value.toString())
         }
-      )
+      );
 
-      await result?.wait();
-      alert("You have bought Nft. See profile page.")
+      await toast.promise(
+        result!.wait(), {
+          pending: "Processing transaction",
+          success: "Nft is yours! Go to Profile page",
+          error: "Processing error"
+        }
+      );
     } catch (e: any) {
       console.error(e.message);
     }

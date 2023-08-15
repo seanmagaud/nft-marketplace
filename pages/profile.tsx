@@ -35,11 +35,11 @@ const Profile: NextPage = () => {
             <main className="flex-1 overflow-y-auto">
               <div className="pt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex">
-                  <h1 className="flex-1 text-2xl font-bold text-white">Your NFTs</h1>
+                  <h1 className="flex-1 text-2xl font-bold text-lighter-red">Your NFTs</h1>
                 </div>
                 <div className="mt-3 sm:mt-2">
                   <div className="hidden sm:block">
-                    <div className="flex items-center border-b border-gray-200">
+                    <div className="flex items-center border-b border-light-red">
                       <nav className="flex-1 -mb-px flex space-x-6 xl:space-x-8" aria-label="Tabs">
                         {tabs.map((tab) => (
                           <a
@@ -48,8 +48,8 @@ const Profile: NextPage = () => {
                             aria-current={tab.current ? 'page' : undefined}
                             className={classNames(
                               tab.current
-                                ? 'border-indigo-100 text-indigo-100'
-                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                                ? 'border-light-red text-lighter-red'
+                                : 'border-transparent text-lighter-red hover:text-lighter-red hover:border-light-red',
                               'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
                             )}
                           >
@@ -74,8 +74,8 @@ const Profile: NextPage = () => {
                         <div
                           className={classNames(
                             nft.tokenId === activeNft?.tokenId 
-                              ? 'ring-2 ring-offset-2 ring-indigo-500'
-                              : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500',
+                              ? 'ring-2 ring-offset-2 ring-light-red'
+                              : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-light-red',
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
                           )}
                         >
@@ -91,7 +91,7 @@ const Profile: NextPage = () => {
                             <span className="sr-only">View details for {nft.meta.name}</span>
                           </button>
                         </div>
-                        <p className="mt-2 block text-sm font-medium text-white truncate pointer-events-none">
+                        <p className="mt-2 block text-sm font-medium text-light-red truncate pointer-events-none">
                           {nft.meta.name}
                         </p>
                       </li>
@@ -103,8 +103,8 @@ const Profile: NextPage = () => {
 
             {/* Details sidebar */}
             { activeNft &&
-              <aside className="hidden w-96 bg-white p-8 border-l border-gray-200 overflow-y-auto lg:block">
-                <div className="pb-16 space-y-6">
+              <aside className="hidden w-96 bg-dark-blue p-8 rounded-md overflow-y-auto lg:block">
+                <div className="space-y-6">
                   <div>
                     <div className="block w-full aspect-w-10 aspect-h-7 rounded-lg overflow-hidden">
                       <img src={activeNft.meta.image} alt="" className="object-cover" />
@@ -115,16 +115,16 @@ const Profile: NextPage = () => {
                           <span className="sr-only">Details for </span>
                           {activeNft.meta.name}
                         </h2>
-                        <p className="text-sm font-medium text-gray-500">{activeNft.meta.description}</p>
+                        <p className="text-sm font-medium text-light-red">{activeNft.meta.description}</p>
                       </div>
                     </div>
                   </div>
                   <div>
                     <h3 className="font-medium text-light-red">Information</h3>
-                    <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
+                    <dl className="mt-2 border-t border-b border-light-red divide-y divide-light-red">
                       {activeNft.meta.attributes.map((attr) => (
                         <div key={attr.trait_type} className="py-3 flex justify-between text-sm font-medium">
-                          <dt className="text-gray-500">{attr.trait_type}: </dt>
+                          <dt className="text-light-red">{attr.trait_type}: </dt>
                           <dd className="text-light-red text-right">{attr.value}</dd>
                         </div>
                       ))}
@@ -132,12 +132,6 @@ const Profile: NextPage = () => {
                   </div>
 
                   <div className="flex">
-                    <button
-                      type="button"
-                      className="flex-1 bg-light-red py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Download Image
-                    </button>
                     <button
                       disabled={activeNft.isListed}
                       onClick={async () => {
@@ -151,7 +145,7 @@ const Profile: NextPage = () => {
                         }
                       }}
                       type="button"
-                      className="disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="disabled:text-gray-400 disabled:cursor-not-allowed flex-1 ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 "
                     >
                       {activeNft.isListed ? "Nft is listed": "List Nft"}
                     </button>
