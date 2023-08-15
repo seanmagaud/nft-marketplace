@@ -1,6 +1,11 @@
 # NFT Marketplace
 
-Welcome to the NFT Marketplace repository! This project aims to provide a decentralized platform for trading NFTs (Non-Fungible Tokens). The marketplace is hosted on Vercel and can be accessed at [https://nftmarketplace-kohl.vercel.app/](https://nftmarketplace-kohl.vercel.app/).
+Welcome to the NFT Marketplace repository! This project aims to provide a decentralized platform for trading NFTs (Non-Fungible Tokens).
+
+The marketplace is hosted on Vercel and can be accessed at [https://nftmarketplace-kohl.vercel.app/](https://nftmarketplace-kohl.vercel.app/).
+![screen1](https://github.com/seanmagaud/nftmarketplace/assets/90192506/d428c180-815c-47a0-ba24-e7d9b72d2275)
+
+
 
 ## Getting Started
 
